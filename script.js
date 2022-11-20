@@ -39,8 +39,19 @@ function calculateTotalSalary(){
 }
 
 function render(){
-    //add employees to table
-
+    //add employees to table on the DOM
+    for(let object of employeeArray){
+        $('#employee-table').append(`
+        <tr>
+            <td>${object.firstName}</td>
+            <td>${object.lastName}</td>
+            <td>${object.id}</td>
+            <td>${object.title}</td>
+            <td>${object.annualSalary}</td>
+            <td><button id="object.id">Delete</button></td>
+        </tr>
+        `)
+    }
     //update the salary total
     let salaryTotal = calculateTotalSalary();
     console.log('salary total:', salaryTotal);
