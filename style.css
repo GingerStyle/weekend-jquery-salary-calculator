@@ -1,0 +1,22 @@
+#page-title {
+text-align: center;
+}
+
+.input {
+    border: 1px solid black;
+    color: grey;
+}
+
+#submit-button {
+    float: right;
+}
+
+#employee-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid black;
+    text-align: left;
+}
