@@ -5,7 +5,7 @@ let employeeArray = [];
 function onReady(){
     console.log('jquery is working');
     $('#submit-button').on('click', getInputText);
-
+    $('#employee-table').on('click', 'td', deleteEmployee)
 }
 
 function getInputText(){
@@ -38,6 +38,10 @@ function calculateTotalSalary(){
     return salary;
 }
 
+function deleteEmployee(){
+    $(this).parent().remove();
+}
+
 function render(){
     //add employees to table on the DOM
     for(let object of employeeArray){
@@ -48,7 +52,7 @@ function render(){
             <td>${object.id}</td>
             <td>${object.title}</td>
             <td>${object.annualSalary}</td>
-            <td><button id="object.id">Delete</button></td>
+            <td><button id="${object.id}">Delete</button></td>
         </tr>
         `)
     }
