@@ -5,7 +5,7 @@ let employeeArray = [];
 function onReady(){
     console.log('jquery is working');
     $('#submit-button').on('click', getInputText);
-    $('#employee-table').on('click', 'td', deleteEmployee)
+    $('#employee-table').on('click', '#delete-btn', deleteEmployee)
 }
 
 function getInputText(){
@@ -39,10 +39,22 @@ function calculateTotalSalary(){
 }
 
 function deleteEmployee(){
-    $(this).parent().remove();
+    //remove from the DOM
+    $(this).parent().parent().remove();
+    //remove from the employeeArray
+    let identifier = $(this).data('identify');
+    console.log('object class:', identifier);
+    let index = employeeArray.findIndex(function(employee){return employee.id == identifier});
+    employeeArray.splice(index, 1);
+    console.log(employeeArray);
+    //refresh the DOM
+    $('#total-monthly').removeClass('over20k');
+    render();
 }
 
 function render(){
+    //clear the table except for the headers
+    $('#employee-table').find("tr:not(:first)").remove();
     //add employees to table on the DOM
     for(let object of employeeArray){
         $('#employee-table').append(`
@@ -51,8 +63,8 @@ function render(){
             <td>${object.lastName}</td>
             <td>${object.id}</td>
             <td>${object.title}</td>
-            <td>${object.annualSalary}</td>
-            <td><button id="${object.id}">Delete</button></td>
+            <td>$${Intl.NumberFormat().format(object.annualSalary)}</td>
+            <td><button data-identify="${object.id}" id="delete-btn">Delete</button></td>
         </tr>
         `)
     }
@@ -60,5 +72,8 @@ function render(){
     let salaryTotal = calculateTotalSalary();
     console.log('salary total:', salaryTotal);
     //apppend SalaryTotal to the Dom
-    $('#total-monthly').text(`Total Monthly: $${salaryTotal.toLocaleString("en-US")}`);
+    $('#total-monthly').text(`Total Monthly: $${Intl.NumberFormat().format(salaryTotal)}`);
+    if(salaryTotal >= 20000){
+        $('#total-monthly').addClass('over20k');
+    }
 }

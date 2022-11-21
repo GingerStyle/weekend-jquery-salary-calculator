@@ -19,3 +19,7 @@ td, th {
 #total-monthly {
     float: right;
 }
+
+.over20k {
+    color: red;
+}
